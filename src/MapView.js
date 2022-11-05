@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import ArcGISMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 
-export default function () {
+export default function Map() {
  
     const mapDiv = useRef(null);
 

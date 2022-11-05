@@ -1,19 +1,36 @@
-import React from 'react';
-import { useWebMap } from 'esri-loader-hooks';
-import { loadModules } from 'esri-loader';
+import React, {useEffect, useRef} from 'react'
+import ArcGISMap from "@arcgis/core/Map";
+import MapView from "@arcgis/core/views/MapView";
+
+export default function SelfMap() {
+ 
+    const mapDiv = useRef(null);
+
+    useEffect(() => {
+      if (mapDiv.current) {
+        const map = new ArcGISMap({
+          basemap: "gray-vector",
+        });
+  
+        const view = new MapView({
+          map,
+          container: mapDiv.current,
+          extent: {
+            spatialReference: {
+              wkid: 102100,
+            },
+            xmax: -13581772,
+            xmin: -13584170,
+            ymax: 4436367,
+            ymin: 4435053,
+          },
+        });
+      }
+    }, []);
 
 
-// loadModules(['esri/map'])
-//   .then( export default function WebMap() {
-//   // takes map as a string (item id), or JSON (item data)
-//   const [ref] = useWebMap('e691172598f04ea8881cd2a4adaa45ba');
-//   return <div style={{ height: 400 }} ref={ref} />;
-// }
+ 
 
-// )
-// .catch(err => {
-//   // handle any script or module loading errors
-//   console.error(err);
-// });
-
-// component.js
+  
+    return <div style={{"height":"400px"}} className="mapDiv" ref={mapDiv}></div>;
+}
